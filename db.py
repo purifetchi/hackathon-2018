@@ -26,4 +26,12 @@ class Database():
     def register_user(self, username, password):
         pass
     def get_user_posts(self, username):
-        pass
+        cursor = self.db.cursor()
+        cursor.execute("SELECT * FROM `posts` WHERE `author`=?", (username,))
+        
+        row = cursor.fetchall()
+
+        if row is None:
+            return None
+        else: 
+            return row
