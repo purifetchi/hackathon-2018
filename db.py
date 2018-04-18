@@ -73,4 +73,19 @@ class Database():
         if avatar != "":
             cursor.execute("UPDATE users SET avatar=? WHERE username=?", (avatar,username))
 
-        
+    def follow_user(self, origin, follow):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT * FROM users WHERE username=?", (origin,))
+        info = cursor.fetchone()
+        following = json.loads(info[3])
+        following.append(follow)
+        following = json.dumps(following)
+        cursor.execute("UPDATE users SET follows=? WHERE username=?", (following, origin))
+    def unfollow_user(self, origin, follow):
+        cursor = self.db.cursor()
+        cursor.execute("SELECT * FROM users WHERE username=?", (origin,))
+        info = cursor.fetchone()
+        following = json.loads(info[3])
+        following.remove(follow)
+        following = json.dumps(following)
+        cursor.execute("UPDATE users SET follows=? WHERE username=?", (following, origin))

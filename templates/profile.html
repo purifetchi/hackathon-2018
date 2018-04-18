@@ -21,6 +21,15 @@
 		<div id="content">
 			<img id="image" src="{{ info['avatar'] }}">
 			<div id="username">@{{ info['username'] }}</div>
+			{% if session['username'] == info['username'] %}
+				<a href="/profile/settings">Settings</a>
+			{% else %}
+				{% if info['username'] not in following %}
+					<a href="/profile/{{ info['username'] }}/follow">Follow</a>
+				{% else %}
+					<a href="/profile/{{ info['username'] }}/unfollow">Unfollow</a>
+				{% endif %}
+			{% endif %}
 			<div id="user"></div>
 			{% if 'username' in session %}
 				<form action="/post" method="POST">

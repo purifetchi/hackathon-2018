@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, request, redirect, session
 from db import Database
+import json
 
 app = Flask(__name__)
 db = Database()
@@ -8,7 +9,13 @@ db = Database()
 # Strona glowna
 @app.route("/")
 def route_index():
-	return render_template("index.html")
+	if 'username' in session:
+		info = db.get_user_info(session['username'])
+		following = json.loads(info["follows"])
+		print(following)
+	else:
+		following = None
+	return render_template("index.html", following=following, db=db)
 	
 # Logowanie
 @app.route("/login", methods=['GET', 'POST'])
@@ -39,8 +46,12 @@ def route_register():
 def route_profile(username):
 	if db.is_user(username):
 		userinfo = db.get_user_info(username)
+		if 'username' in session:
+			following = db.get_user_info(session["username"])["follows"]
+		else:
+			following = ""
 		posts = db.get_user_posts(username)
-		return render_template("profile.html", info=userinfo, posts=posts)
+		return render_template("profile.html", info=userinfo, posts=posts, following=following)
 	else:
 		return "Brak uzytkownika"
 
@@ -68,18 +79,18 @@ def route_settings():
 # Follow
 @app.route("/profile/<username>/follow")
 def route_followe(username):
-	if db.is_user(username):
+	if db.is_user(username) and 'username' in session:
 		db.follow_user(session['username'], username)
-		return "Wlasnie followujesz uzytkowika: " + username
+		return redirect("/profile/" + username, code=302)
 	else:
 		return "Brak uzytkownika"
 	
 # Cofanie followa
 @app.route("/profile/<username>/unfollow")
 def route_unfollow(username):
-	if db.is_user(username):
+	if db.is_user(username) and 'username' in session:
 		db.unfollow_user(session['username'], username)
-		return "Juz nie followujesz uzytkowika: " + username
+		return redirect("/profile/" + username, code=302)
 	else:
 		return "Brak uzytkownika"
 	
