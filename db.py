@@ -66,5 +66,11 @@ class Database():
         else:
             self.db.commit()
             return False
-    
+    def update_data(self, username, password, avatar)
+        cursor = self.db.cursor()
+        if password != "":
+            cursor.execute("UPDATE users SET password=? WHERE username=?", (password,username))
+        if avatar != "":
+            cursor.execute("UPDATE users SET avatar=? WHERE username=?", (avatar,username))
+
         
