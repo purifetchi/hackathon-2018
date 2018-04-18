@@ -1,0 +1,12 @@
+CREATE TABLE users (
+	username TEXT NOT NULL PRIMARY KEY,
+	password TEXT NOT NULL,
+	avatar TEXT NOT NULL DEFAULT '/static/avatar.png',
+	follows TEXT NOT NULL DEFAULT '[]'
+);
+
+CREATE TABLE posts (
+	author TEXT NOT NULL,
+	content TEXT NOT NULL,
+	date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
