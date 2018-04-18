@@ -48,7 +48,7 @@ class Database():
 
     def get_user_posts(self, username):
         cursor = self.db.cursor()
-        cursor.execute("SELECT * FROM posts WHERE author=?", (username,))
+        cursor.execute("SELECT * FROM posts WHERE author=? ORDER BY date DESC", (username,))
         
         row = cursor.fetchall()
 
@@ -66,7 +66,7 @@ class Database():
         else:
             self.db.commit()
             return False
-    def update_data(self, username, password, avatar)
+    def update_data(self, username, password, avatar):
         cursor = self.db.cursor()
         if password != "":
             cursor.execute("UPDATE users SET password=? WHERE username=?", (password,username))

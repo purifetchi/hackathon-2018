@@ -39,7 +39,8 @@ def route_register():
 def route_profile(username):
 	if db.is_user(username):
 		userinfo = db.get_user_info(username)
-		return render_template("profile.html", info=userinfo)
+		posts = db.get_user_posts(username)
+		return render_template("profile.html", info=userinfo, posts=posts)
 	else:
 		return "Brak uzytkownika"
 
@@ -51,11 +52,12 @@ def route_post():
 			return redirect("/profile/" + session['username'], code=302)
 
 # Ustawienia profilu
-@app.route("/profile/settings")
+@app.route("/profile/settings", methods=['GET', 'POST'])
 def route_settings():
 	if request.method == 'POST':
-		db.update_data(session['username'], request.form["passwd"], request.form["avatar"])
-		return redirect("/", code=302)
+		if 'username' in session:
+			db.update_data(session['username'], request.form["passwd"], request.form["avatar"])
+			return redirect("/profile/" + session['username'], code=302)
 	else:
 		if "username" in session:
 			user_info = db.get_user_info(session['username'])
