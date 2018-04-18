@@ -43,6 +43,13 @@ def route_unfollow(username):
 def route_logout():
 	return "Wylogowano!"
 	
+# Errory
+
+	# 404
+	@app.errorhandler(404)
+	def page_not_found(e):	
+		return render_template("404.html"), 404
+	
 
 app.secret_key = "dupa"
     
