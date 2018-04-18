@@ -1,0 +1,42 @@
+body{
+	padding: 0;
+	margin: 0;
+}
+#container{
+	height:100vh;
+	width: 100vw;
+	background-color: #33cc99;
+}
+#content{
+	width:50vw;
+	background-color: white;
+	height: 100vh;
+	margin-left: auto;
+	margin-right: auto;
+	border-left: 2px solid #1aaf7d;
+	border-right: 2px solid #1aaf7d;
+
+}
+#image{
+	text-align: center;
+	height: 128px;
+	width: 128px;
+	border: 2px solid #33cc99;
+	margin-left: auto;
+	margin-right: auto;
+	
+	
+}
+#user{
+	width:40vw;
+	margin-left: auto;
+	margin-right: auto;
+	height: 150px;
+	padding-bottom: 10px;
+	border-bottom: dotted 2px #33cc99;
+	
+}
+.break{
+	width:50vw;
+	height: 30px;
+}
