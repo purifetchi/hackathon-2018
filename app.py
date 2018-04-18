@@ -1,7 +1,8 @@
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, db
 
 app = Flask(__name__)
+db = Database()
 
 # Strona glowna
 @app.route("/")
@@ -21,7 +22,7 @@ def route_register():
 # Profil uzytkownika
 @app.route("/profile/<username>")
 def route_profile(username):
-	return "Witaj" + username
+	return "Witaj: " + username
 
 # Ustawienia profilu
 @app.route("/profile/settings")
@@ -31,12 +32,19 @@ def route_settings():
 # Follow
 @app.route("/profile/<username>/follow")
 def route_followe(username):
-	return "Wlasnie followujesz uzytkowika: " + username
+	if db.is_user(username):
+		return "Wlasnie followujesz uzytkowika: " + username
+	else:
+		return "Brak uzytkownika"
 	
 # Cofanie followa
 @app.route("/profile/<username>/unfollow")
 def route_unfollow(username):
-	return "Juz nie followujesz uzytkowika: " + username
+	if db.is_user(username):
+		return "Juz nie followujesz uzytkowika: " + username
+	else:
+		return "Brak uzytkownika"
+	
 	
 # Wylogowywanie
 @app.route("/logout")
