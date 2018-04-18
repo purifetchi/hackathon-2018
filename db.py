@@ -53,3 +53,13 @@ class Database():
             return None
         else: 
             return row
+    def add_post(self, username, content)
+        cursor = seld.db.cursor()
+        cursor.execute("INSERT INTO posts (author, content) VALUES (?,?)", (username, content))
+        if cursor.rowcount > 0:
+            self.db.commit()
+            return True
+        else:
+            self.db.commit()
+            return False
+        
