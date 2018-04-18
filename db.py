@@ -72,5 +72,7 @@ class Database():
             cursor.execute("UPDATE users SET password=? WHERE username=?", (password,username))
         if avatar != "":
             cursor.execute("UPDATE users SET avatar=? WHERE username=?", (avatar,username))
-
+    def follow_user(self, origin, follow)
+        cursor = self.db.cursor()
+        cursor.execute("SELECT * FROM users WHERE username=?", (origin,))
         
