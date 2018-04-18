@@ -42,6 +42,12 @@ def route_profile(username):
 	else:
 		return "Brak uzytkownika"
 
+# Wysyłanie wpisów
+@app.route("/post", methods=['POST'])
+def route_post(username):
+	if "username" in session:
+		
+
 # Ustawienia profilu
 @app.route("/profile/settings")
 def route_settings():
@@ -69,7 +75,7 @@ def route_unfollow(username):
 def route_logout():
 	session.clear()
 	return redirect("/", code=302)
-	
+	 
 # Errory
 
 # 404
