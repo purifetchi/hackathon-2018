@@ -146,8 +146,8 @@ body {
   <form action="/settings" method="POST" id="msform">
     <h2 class="fs-title">Change your profile</h2>
     <h3 class="fs-subtitle">You can edit your password and avatar below</h3>
-    <input type="text" name="avatar" placeholder="Avatar" />
-    <input type="password" name="passwd" placeholder="New password" />
+    <input type="text" name="avatar" placeholder="Avatar" value="{{ avatar }}">
+    <input type="password" name="passwd" placeholder="New password">
     <input type="submit" name="submit" class="next action-button" value="Change profile" />
   </form>
 

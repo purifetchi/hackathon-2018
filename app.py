@@ -53,7 +53,15 @@ def route_post():
 # Ustawienia profilu
 @app.route("/profile/settings")
 def route_settings():
-	return "Ustawienia"
+	if request.method == 'POST':
+		db.update_data(session['username'], request.form["passwd"], request.form["avatar"])
+		return redirect("/", code=302)
+	else:
+		if "username" in session:
+			user_info = db.get_user_info(session['username'])
+			return render_template("settings.html", avatar=user_info['avatar'])
+		else:
+			return "Najpierw sie zaloguj"
 	
 # Follow
 @app.route("/profile/<username>/follow")
