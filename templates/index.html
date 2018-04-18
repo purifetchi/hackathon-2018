@@ -1,9 +1,10 @@
 {% if 'username' in session %}
-<h1>Hello, {{ username }}!</h1>
+<h1>Hello, {{ session['username'] }}!</h1>
 {% else %}
 <h1>Register to use</h1>
 {% endif %}
 <a href="/register">Register</a>
+<a href="/login">Login</a>
 
 <div id="posts">
 </div>
