@@ -45,7 +45,7 @@ class Database():
 
     def get_user_posts(self, username):
         cursor = self.db.cursor()
-        cursor.execute("SELECT * FROM `posts` WHERE `author`=?", (username,))
+        cursor.execute("SELECT * FROM posts WHERE author=?", (username,))
         
         row = cursor.fetchall()
 
@@ -62,4 +62,5 @@ class Database():
         else:
             self.db.commit()
             return False
+    
         
