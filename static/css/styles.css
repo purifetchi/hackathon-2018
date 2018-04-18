@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+* {
+	font-family: 'Open Sans', sans-serif;
+}
+
 body{
 	padding: 0;
 	margin: 0;
@@ -23,6 +29,7 @@ body{
 
 }
 #image{
+	margin-top: 20px;
 	text-align: center;
 	height: 128px;
 	width: 128px;
@@ -39,6 +46,11 @@ body{
 	border-bottom: dotted 2px #33cc99;
 	
 }
+
+#username {
+	font-size: 28px;
+}
+
 .break{
 	width:50vw;
 	height: 30px;
@@ -48,4 +60,22 @@ textarea {
 	width:30vw;
 	height: 10vh;
 	resize: none;
+}
+
+.post {
+	width: 45vw;
+	text-align: left;
+	padding: 10px;
+	padding-left: 5vw;
+}
+
+.postavatar {
+	max-width: 50px;
+	max-height: 50px;
+	height: auto;
+	width: auto;
+}
+
+.posttime {
+	font-size: smaller;
 }
