@@ -69,6 +69,7 @@ def route_settings():
 @app.route("/profile/<username>/follow")
 def route_followe(username):
 	if db.is_user(username):
+		db.follow_user(session['username'], username)
 		return "Wlasnie followujesz uzytkowika: " + username
 	else:
 		return "Brak uzytkownika"
@@ -77,6 +78,7 @@ def route_followe(username):
 @app.route("/profile/<username>/unfollow")
 def route_unfollow(username):
 	if db.is_user(username):
+		db.unfollow_user(session['username'], username)
 		return "Juz nie followujesz uzytkowika: " + username
 	else:
 		return "Brak uzytkownika"
