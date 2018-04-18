@@ -1,5 +1,6 @@
 
-from flask import Flask, render_template, request, redirect, session, db
+from flask import Flask, render_template, request, redirect, session
+from db import Database
 
 app = Flask(__name__)
 db = Database()
@@ -7,22 +8,39 @@ db = Database()
 # Strona glowna
 @app.route("/")
 def route_index():
-	return "Test"
+	return render_template("index.html")
 	
 # Logowanie
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def route_login():
-	return "Logowanie"
+	if request.method == 'POST':
+		if db.auth_user(request.form["username"], request.form["passwd"]):
+			session["username"] = request.form["username"]
+			return redirect("/", code=302)
+		else:
+			return redirect("/login", code=302)
+	else:
+		return render_template("login.html")
 
 # Rejestracja
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def route_register():
-	return "Zarejestruj sie juz teraz! Polecam XBot"
+	if request.method == 'POST':
+		if db.register_user(request.form["username"], request.form["passwd"]):
+			session["username"] = request.form["username"]
+			return redirect("/", code=302)
+		else:
+			return redirect("/register", code=302)
+	else:
+		return render_template("register.html")
 	
 # Profil uzytkownika
 @app.route("/profile/<username>")
 def route_profile(username):
-	return "Witaj: " + username
+	if db.is_user(username):
+		return render_template("profile.html", username=username)
+	else:
+		return "Brak uzytkownika"
 
 # Ustawienia profilu
 @app.route("/profile/settings")
@@ -49,7 +67,8 @@ def route_unfollow(username):
 # Wylogowywanie
 @app.route("/logout")
 def route_logout():
-	return "Wylogowano!"
+	session.clear()
+	return redirect("/", code=302)
 	
 # Errory
 
