@@ -19,11 +19,12 @@
 	<body>
 	<div id="container">
 		<div id="content">
-			<div class="break"></div>
-			<div id="image"> </div>
-			<div class="break"></div>
-			<div id="user"> </div>
-		
+			<div id="user"></div>
+			{% if 'username' in session %}
+				<div id="posts"></div>
+			{% else %}
+				<a href="/register">Register</a> or <a href="/login">Login</a>
+			{% endif %}
 		</div>
 	</div>
 			
